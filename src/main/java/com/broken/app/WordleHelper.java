@@ -13,13 +13,13 @@ public class WordleHelper {
 
   private static final int WORD_LENGTH = 5;
 
-  static List<Character> matchingCharacters = List.of('r');
-  static List<Character> nonMatchingCharacters = List.of('l', 'a', 'y', 'e', 'b');
+  static List<Character> matchingCharacters = List.of('o', 'l');
+  static List<Character> nonMatchingCharacters = List.of('r', 'a', 't', 'e', 'f', 'i', 's');
 
-  private static final String STARTING_LETTERS = "dri";
+  private static final String STARTING_LETTERS = "";
   private static final String ENDING_LETTERS = "";
   private static final String NON_STARTING_LETTERS = "";
-  private static final String NON_ENDING_LETTERS = "r";
+  private static final String NON_ENDING_LETTERS = "";
 
   public static void main(String[] args) {
     getwords();
@@ -47,8 +47,15 @@ public class WordleHelper {
     URL resource = WordleHelper.class.getResource("/words_alpha.txt");
     try (Stream<String> words = Files.lines(Paths.get(resource.toURI()))) {
       words.filter(s -> s.length() == WORD_LENGTH).filter(WordleHelper::doesContain)
-          .filter(WordleHelper::doesNotContain).filter(s -> s.startsWith(STARTING_LETTERS))
-          .filter(s -> s.endsWith(ENDING_LETTERS)).sorted().forEach(System.out::println);
+          .filter(WordleHelper::doesNotContain)
+          // .filter(s -> s.startsWith(STARTING_LETTERS))
+          // .filter(s -> s.endsWith(ENDING_LETTERS)).filter(s -> !s.endsWith(NON_ENDING_LETTERS))
+          // .filter(s -> !s.endsWith(NON_STARTING_LETTERS)).filter(s -> s.charAt(1) != 'o')
+          .filter(s -> s.charAt(3) == 'l').filter(s -> s.charAt(0) != 'o')
+          .filter(s -> s.charAt(1) != 'o')
+          // .filter(s -> s.charAt(0) != 'o').filter(s -> s.charAt(2) != 'a')
+          // .filter(s -> s.charAt(1) != 'v').filter(s -> s.charAt(3) != 'r')
+          .sorted().forEach(System.out::println);
     } catch (IOException | URISyntaxException e) {
       System.out.println(e);
     }
